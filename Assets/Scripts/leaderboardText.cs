@@ -6,12 +6,12 @@ public class leaderboardText : MonoBehaviour {
 	private bool loadedScore = false;
 	public static GameObject[] tenDangNhap;
 	public static GameObject[] hoTen;
-	public static GameObject[] maPhongBan;
+//	public static GameObject[] maPhongBan;
 	public static GameObject[] diem;
 
 	public GameObject tenDangNhap1;
 	public GameObject hoTen1;
-	public GameObject maPhongBan1;
+//	public GameObject maPhongBan1;
 	public GameObject diem1;
 
 	IEnumerator GetScores()
@@ -44,7 +44,7 @@ public class leaderboardText : MonoBehaviour {
 
 			tenDangNhap = new GameObject[player.Length-1];
 			hoTen = new GameObject[player.Length-1];
-			maPhongBan = new GameObject[player.Length-1];
+//			maPhongBan = new GameObject[player.Length-1];
 			diem = new GameObject[player.Length-1];
 
 			for (int i = 0;i<player.Length-1;i++)
@@ -52,19 +52,22 @@ public class leaderboardText : MonoBehaviour {
 				string[] info = player[i].Split('|');
 
 				tenDangNhap[i] = NGUITools.AddChild(gameObject,tenDangNhap1);
-				tenDangNhap[i].transform.localPosition = new Vector3(tenDangNhap1.transform.localPosition.x, tenDangNhap1.transform.localPosition.y - i*45f,tenDangNhap1.transform.localPosition.z );
+				tenDangNhap[i].transform.localPosition = new Vector3(tenDangNhap1.transform.localPosition.x, tenDangNhap1.transform.localPosition.y - i*40f,tenDangNhap1.transform.localPosition.z );
+				tenDangNhap[i].transform.localScale = tenDangNhap1.transform.localScale;
 				tenDangNhap[i].GetComponentInChildren<UILabel>().text = info[0];
 
 				hoTen[i] = NGUITools.AddChild(gameObject,hoTen1);
-				hoTen[i].transform.localPosition = new Vector3(hoTen1.transform.localPosition.x, hoTen1.transform.localPosition.y - i*45f,hoTen1.transform.localPosition.z );;
+				hoTen[i].transform.localPosition = new Vector3(hoTen1.transform.localPosition.x, hoTen1.transform.localPosition.y - i*40f,hoTen1.transform.localPosition.z );
+				hoTen[i].transform.localScale = tenDangNhap1.transform.localScale;
 				hoTen[i].GetComponentInChildren<UILabel>().text = info[1];
 //
-				maPhongBan[i] = NGUITools.AddChild(gameObject,maPhongBan1);
-				maPhongBan[i].transform.localPosition = new Vector3(maPhongBan1.transform.localPosition.x, maPhongBan1.transform.localPosition.y - i*45f,maPhongBan1.transform.localPosition.z );;
-				maPhongBan[i].GetComponentInChildren<UILabel>().text = info[2];
+//				maPhongBan[i] = NGUITools.AddChild(gameObject,maPhongBan1);
+//				maPhongBan[i].transform.localPosition = new Vector3(maPhongBan1.transform.localPosition.x, maPhongBan1.transform.localPosition.y - i*45f,maPhongBan1.transform.localPosition.z );;
+//				maPhongBan[i].GetComponentInChildren<UILabel>().text = info[2];
 
 				diem[i] = NGUITools.AddChild(gameObject,diem1);
-				diem[i].transform.localPosition = new Vector3(diem1.transform.localPosition.x, diem1.transform.localPosition.y - i*45f,diem1.transform.localPosition.z );;
+				diem[i].transform.localPosition = new Vector3(diem1.transform.localPosition.x, diem1.transform.localPosition.y - i*40f,diem1.transform.localPosition.z );
+				diem[i].transform.localScale = tenDangNhap1.transform.localScale;
 				diem[i].GetComponentInChildren<UILabel>().text = info[3];
 
 			}
