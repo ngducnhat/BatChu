@@ -71,7 +71,6 @@ public class hintBox : MonoBehaviour {
 		string hash = GlobalInfo.Md5Sum(GlobalInfo.currentUser + GlobalInfo.currentLevel.ToString() + secretKey);
 		string string_URL = GlobalInfo.addScoreURL + "currentUser=" + Uri.EscapeDataString(GlobalInfo.currentUser) + "&currentLevel=" + GlobalInfo.currentLevel + "&hash=" + hash;
 		WWW string_get = new WWW(string_URL);
-		Debug.Log(string_URL);
 		yield return string_get;
 		
 		if (string_get.error != null)
@@ -91,7 +90,7 @@ public class hintBox : MonoBehaviour {
 		if(updatedScore){
 			updatedScore = false;
 			if (GlobalInfo.currentLevel > GlobalInfo.maxLevel){
-				Application.LoadLevel("Login");
+				Application.LoadLevel("Complete");
 			} else {
 				Application.LoadLevel("Game");
 			}

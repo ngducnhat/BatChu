@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour {
 		string targetFile = "Textures/Levels/"+pictureName;
 		t_dynamic_tx = Resources.Load(targetFile, typeof(Texture2D)) as Texture2D;
 		gameObject.GetComponentInChildren<UITexture>().mainTexture = t_dynamic_tx;
-		Debug.Log (picture.GetComponent<UITexture>().width);
 
 		//Set variable
 		numOfAnswer = pictureName.Length;

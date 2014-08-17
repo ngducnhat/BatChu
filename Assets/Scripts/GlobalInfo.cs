@@ -1,4 +1,4 @@
-﻿	using UnityEngine;
+	using UnityEngine;
 using System.Collections;
 
 public class GlobalInfo : MonoBehaviour {
@@ -14,7 +14,7 @@ public class GlobalInfo : MonoBehaviour {
 	public static string signupURL = "http://54.186.229.83/Batchu/signup.php?";
 	public static string checkConnectionURL = "http://54.186.229.83/Batchu/checkConnection.php";
 
-	public static GameObject popupPrefab;
+	public GameObject popupPrefab;
 
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
@@ -25,7 +25,9 @@ public class GlobalInfo : MonoBehaviour {
 	void Start () {
 		currentLevel = 1;
 		currentUser = "";
-		Application.LoadLevel("Login");
+//		Application.LoadLevel("Login");
+		StartCoroutine(ConnectToServer());
+
 	}
 	
 	// Update is called once per frame
@@ -34,6 +36,42 @@ public class GlobalInfo : MonoBehaviour {
 			currentPicture = picture[currentLevel-1];
 		}
 
+		if (Input.GetKeyDown(KeyCode.Escape)) 
+		{
+			if((Application.loadedLevelName == "Login")||(Application.loadedLevelName == "Global"))
+			{
+				Application.Quit();
+			}
+			else{
+				Application.LoadLevel("Login");
+			}
+		}
+
+	}
+
+	IEnumerator ConnectToServer()
+	{
+		string string_URL = GlobalInfo.checkConnectionURL;
+		WWW string_get = new WWW(string_URL);
+		yield return string_get;
+		
+		if (string_get.error != null)
+		{
+			StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Không thể kết nối đến server",3600f));
+			Debug.Log (string_get.error);
+		}
+		else
+		{
+			if(string_get.text.Trim () == "1")
+			{
+				Application.LoadLevel("Login");
+			}
+			else
+			{
+				StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Không thể kết nối đến server!",3600f));
+			}
+			StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,string_get.text,3600f));
+		}
 	}
 
 	public static IEnumerator PrintAndWait(GameObject popupPrefab, string popupText, float waitTime) {

@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\leaderboardText.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GlobalInfo.cs">
     <Files>
-      <File FileName="Assets\Scripts\leaderboardText.cs" Line="69" Column="122" />
+      <File FileName="Assets\Scripts\GlobalInfo.cs" Line="51" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
