@@ -10,14 +10,6 @@ public class loginButton : MonoBehaviour {
 	void Start(){
 		GlobalInfo.currentLevel = 1;
 		GlobalInfo.currentUser = "";
-
-//		#if UNITY_ANDROID
-//		if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
-//		#endif
-		
-//		#if UNITY_WEBPLAYER
-//		StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"WEbPlayer",5f));
-//		#endif
 	}
 
 	IEnumerator Login()

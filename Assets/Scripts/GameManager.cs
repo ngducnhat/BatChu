@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class GameManager : MonoBehaviour {
 	public GameObject box1;
@@ -21,30 +22,48 @@ public class GameManager : MonoBehaviour {
 	public static Texture2D t_dynamic_tx;
 
 	void Start(){
-		string pictureName = GlobalInfo.currentPicture.name;
+		string pictureName = GlobalInfo.currentLevel.ToString() + GlobalInfo.picture[GlobalInfo.currentLevel-1].Trim();
 		string targetFile = "Textures/Levels/"+pictureName;
 		t_dynamic_tx = Resources.Load(targetFile, typeof(Texture2D)) as Texture2D;
 		gameObject.GetComponentInChildren<UITexture>().mainTexture = t_dynamic_tx;
 
 		//Set variable
-		numOfAnswer = pictureName.Length;
-		answer = pictureName.ToUpper();
+		numOfAnswer = GlobalInfo.picture[GlobalInfo.currentLevel-1].Trim().Length;
+		answer = GlobalInfo.picture[GlobalInfo.currentLevel-1].Trim().ToUpper();
 		uiSprite = box1.GetComponent<UISprite>();
 		boxSize = uiSprite.localSize.x;
 		float pictureHeight = picture.GetComponent<UITexture>().height;
 
 		//Display answerBox
 		answerBox = new GameObject[numOfAnswer];
-		for (int i = 0;i<numOfAnswer;i++){
-			answerBox[i] = NGUITools.AddChild(gameObject,box1);
-			if(numOfAnswer % 2 == 1){
-				answerBox[i].transform.localPosition = new Vector3((numOfAnswer / 2 - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - boxSize,0);							
+		if(numOfAnswer < 11)
+		{
+			for (int i = 0;i<numOfAnswer;i++){
+				answerBox[i] = NGUITools.AddChild(gameObject,box1);
+				if(numOfAnswer % 2 == 1){
+					answerBox[i].transform.localPosition = new Vector3((numOfAnswer / 2 - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - boxSize,0);							
+				}
+				else {
+					answerBox[i].transform.localPosition = new Vector3((numOfAnswer / 2 - .5f - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - boxSize,0);
+				}
 			}
-			else {
-				answerBox[i].transform.localPosition = new Vector3((numOfAnswer / 2 - .5f - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - boxSize,0);
+		}
+		else
+		{
+			for (int i = 0;i<10;i++){
+				answerBox[i] = NGUITools.AddChild(gameObject,box1);
+				answerBox[i].transform.localPosition = new Vector3((10 / 2 - .5f - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - boxSize,0);
 			}
-//			uiLabel = answerBox[i].GetComponentInChildren<UILabel>();
-//			uiLabel.text = answer[i].ToString();
+
+			for (int i = 10;i<numOfAnswer;i++){
+				answerBox[i] = NGUITools.AddChild(gameObject,box1);
+				if((numOfAnswer-10) % 2 == 1){
+					answerBox[i].transform.localPosition = new Vector3(((numOfAnswer-10) / 2 - (i-10)) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 2.5f * boxSize,0);							
+				}
+				else {
+					answerBox[i].transform.localPosition = new Vector3(((numOfAnswer-10) / 2 - .5f - (i-10)) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 2.5f * boxSize,0);
+				}
+			}
 		}
 
 		//Display hintBox
@@ -53,14 +72,14 @@ public class GameManager : MonoBehaviour {
 			hintBox[i] = NGUITools.AddChild(gameObject,box2);
 			hintBox[i + numOfHint] = NGUITools.AddChild(gameObject,box2);
 			if(numOfHint % 2 == 1){
-				hintBox[i].transform.localPosition = new Vector3((numOfHint / 2 - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 3f * boxSize,0);
-				hintBox[i + numOfHint].transform.localPosition = new Vector3((numOfHint / 2 - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 4.5f * boxSize,0);
+				hintBox[i].transform.localPosition = new Vector3((numOfHint / 2 - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 4.5f * boxSize,0);
+				hintBox[i + numOfHint].transform.localPosition = new Vector3((numOfHint / 2 - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 6f * boxSize,0);
 				hintBox[i].GetComponent<hintBox>().Pos = i;
 				hintBox[i + numOfHint].GetComponent<hintBox>().Pos = i + numOfHint;
 			}
 			else {
-				hintBox[i].transform.localPosition = new Vector3((numOfHint / 2 - .5f - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 3f * boxSize,0);
-				hintBox[i + numOfHint].transform.localPosition = new Vector3((numOfHint / 2 - .5f - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 4.5f * boxSize,0);
+				hintBox[i].transform.localPosition = new Vector3((numOfHint / 2 - .5f - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 4.5f * boxSize,0);
+				hintBox[i + numOfHint].transform.localPosition = new Vector3((numOfHint / 2 - .5f - i) * (boxSize + boxDistance)*(-1) ,picture.transform.localPosition.y - pictureHeight/2 - 6f * boxSize,0);
 				hintBox[i].GetComponent<hintBox>().Pos = i;
 				hintBox[i + numOfHint].GetComponent<hintBox>().Pos = i + numOfHint;
 			}

@@ -1,40 +1,42 @@
-	using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GlobalInfo : MonoBehaviour {
 	public static int currentLevel;
 	public static string currentUser;
 	public static int maxLevel;
-	public Texture2D[] picture;
-	public static Texture2D currentPicture;
+	public static string[] picture;
 
 	public static string addScoreURL = "http://54.186.229.83/Batchu/addscore.php?";
 	public static string highscoreURL = "http://54.186.229.83/Batchu/leaderboard.php";
 	public static string loginURL = "http://54.186.229.83/Batchu/login.php?";
 	public static string signupURL = "http://54.186.229.83/Batchu/signup.php?";
 	public static string checkConnectionURL = "http://54.186.229.83/Batchu/checkConnection.php";
+	public static string keyURL = "http://54.186.229.83/Batchu/Keys.txt";
 
 	public GameObject popupPrefab;
 
+	private bool loadedKey = false;
+
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
-		maxLevel = picture.Length;
+		StartCoroutine(getKey());
 	}
 
 	// Use this for initialization
 	void Start () {
 		currentLevel = 1;
 		currentUser = "";
-//		Application.LoadLevel("Login");
-		StartCoroutine(ConnectToServer());
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if((0 <currentLevel) && (currentLevel < maxLevel+1)){
-			currentPicture = picture[currentLevel-1];
-		}
+		if (loadedKey)
+		{
+			maxLevel = picture.Length;
+			StartCoroutine(ConnectToServer());
+			loadedKey = false;
+		}	
 
 		if (Input.GetKeyDown(KeyCode.Escape)) 
 		{
@@ -46,6 +48,23 @@ public class GlobalInfo : MonoBehaviour {
 				Application.LoadLevel("Login");
 			}
 		}
+
+	}
+
+	IEnumerator getKey()
+	{
+		WWW keys_get = new WWW(GlobalInfo.keyURL);
+		yield return keys_get;
+		if (keys_get.error != null)
+		{
+			StartCoroutine(PrintAndWait(popupPrefab,keys_get.error,3600f));
+		}
+		else
+		{			
+			picture = keys_get.text.Split('\n');
+			loadedKey = true;
+		}
+		
 
 	}
 
