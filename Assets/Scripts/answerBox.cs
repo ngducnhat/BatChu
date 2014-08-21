@@ -3,6 +3,7 @@ using System.Collections;
 
 public class answerBox : MonoBehaviour {
 	public int hintBoxPos;
+	public bool isOpened = false;
 
 	void OnClick(){
 		if(gameObject.GetComponent<answerBox>().hintBoxPos !=-1){

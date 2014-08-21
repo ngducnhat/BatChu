@@ -1,12 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\loginButton.cs">
     <Files>
-      <File FileName="Assets\Scripts\GlobalInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="54" Column="4" />
+      <File FileName="Assets\Scripts\GlobalInfo.cs" Line="90" Column="27" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="134" Column="3" />
       <File FileName="Assets\Scripts\leaderboardText.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\loginButton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\hintBox.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\loginButton.cs" Line="36" Column="99" />
+      <File FileName="Assets\Scripts\hintBox.cs" Line="121" Column="5" />
+      <File FileName="Assets\Scripts\skipButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\scoreLabel.cs" Line="16" Column="1" />
+      <File FileName="Assets\Scripts\skipTimesLabel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\popupWindow_noButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\answerBox.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\popupWindow_yesButton.cs" Line="77" Column="79" />
+      <File FileName="Assets\Scripts\signupConfimButton.cs" Line="22" Column="326" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

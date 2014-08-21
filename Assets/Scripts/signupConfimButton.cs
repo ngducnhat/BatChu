@@ -15,11 +15,11 @@ public class signupConfimButton : MonoBehaviour {
 	private bool waitDone = false;
 
 	IEnumerator SignUp(){
-		if((username.GetComponent<UIInput>().value == "") || (password.GetComponent<UIInput>().value == "") || (fullName.GetComponent<UIInput>().value == "") || (department.GetComponent<UIPopupList>().value == "")){
+		if((username.GetComponent<UIInput>().value == "") || (password.GetComponent<UIInput>().value == "") || (fullName.GetComponent<UIInput>().value == "") || (department.GetComponent<UIInput>().value == "")){
 			StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Hãy điền đầy đủ thông tin!",1f));
 			yield return null;
 		} else {
-			string string_URL = "username=" + Uri.EscapeDataString(username.GetComponent<UIInput>().value) + "&password=" + Uri.EscapeDataString(password.GetComponent<UIInput>().value) + "&fullName=" + Uri.EscapeDataString(fullName.GetComponent<UIInput>().value) + "&department=" + Uri.EscapeDataString(department.GetComponent<UIPopupList>().value);
+			string string_URL = "username=" + Uri.EscapeDataString(username.GetComponent<UIInput>().value) + "&password=" + Uri.EscapeDataString(password.GetComponent<UIInput>().value) + "&fullName=" + Uri.EscapeDataString(fullName.GetComponent<UIInput>().value) + "&department=" + Uri.EscapeDataString(department.GetComponent<UIInput>().value);
 			string_URL = GlobalInfo.signupURL + string_URL;
 			WWW string_get = new WWW(string_URL);
 			yield return string_get;
@@ -34,14 +34,14 @@ public class signupConfimButton : MonoBehaviour {
 				switch (errorString[0].Trim ())
 				{
 				case "1":
-					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Đăng ký thành công!",3f));
+					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Đăng ký thành công!",2f));
 					signUpSuccess = true;
 					break;
 				case "Query failed: Duplicate entry":
 					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Tài khoản đã tồn tại!",3f));
 					break;
 				default:
-					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,string_get.text,2f));
+					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,string_get.text,3f));
 					break;
 				}
 			}

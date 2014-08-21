@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.IO;
 
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
 	private UILabel uiLabel;
 	private float boxSize;
 	public float boxDistance = 5f;
-	private int numOfHint = 10;
+	public static int numOfHint = 10;
 	public static int[] hintPos;
 	public WWW t_load = null;
 	public static Texture2D t_dynamic_tx;
@@ -105,6 +105,29 @@ public class GameManager : MonoBehaviour {
 			if(hintBox[i].GetComponentInChildren<UILabel>().text == ""){
 				hintBox[i].GetComponentInChildren<UILabel>().text = ((char)(65 + x[count])).ToString();
 				count ++;
+			}
+		}
+
+		//Display hint from previous session
+		if(GlobalInfo.openedPos > 0)
+		{
+			for(int i=0;i<GlobalInfo.openedPos;i++)
+			{
+				answerBox[i].GetComponentInChildren<UILabel>().text = GameManager.answer[i].ToString();
+				answerBox[i].GetComponentInChildren<UILabel>().color = Color.green;
+				answerBox[i].GetComponent<answerBox>().isOpened = true;
+				answerBox[i].GetComponent<answerBox>().hintBoxPos = -1;
+
+				//Deactive the hint box which display on "opened" answer box
+				for(int j=0;j<(2*numOfHint);j++)
+				{
+					if((hintBox[j].GetComponentInChildren<UILabel>().text == answerBox[i].GetComponentInChildren<UILabel>().text) && (!hintBox[j].GetComponent<hintBox>().isOpened))
+					{
+						hintBox[j].transform.localScale = new Vector3(0, 0, 0);
+						hintBox[j].GetComponent<hintBox>().isOpened = true;
+						break;
+					}
+				}
 			}
 		}
 

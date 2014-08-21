@@ -192,9 +192,13 @@
      <Compile Include="Assets\Scripts\leaderboardText.cs" />
      <Compile Include="Assets\Scripts\loginButton.cs" />
      <Compile Include="Assets\Scripts\playButton.cs" />
+     <Compile Include="Assets\Scripts\popupWindow_noButton.cs" />
+     <Compile Include="Assets\Scripts\popupWindow_yesButton.cs" />
      <Compile Include="Assets\Scripts\scoreLabel.cs" />
      <Compile Include="Assets\Scripts\signupButton.cs" />
      <Compile Include="Assets\Scripts\signupConfimButton.cs" />
+     <Compile Include="Assets\Scripts\skipButton.cs" />
+     <Compile Include="Assets\Scripts\skipTimesLabel.cs" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.6.7.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />

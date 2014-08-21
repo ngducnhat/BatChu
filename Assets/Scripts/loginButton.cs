@@ -9,26 +9,32 @@ public class loginButton : MonoBehaviour {
 	
 	void Start(){
 		GlobalInfo.currentLevel = 1;
+		GlobalInfo.skipTimes = 0;
+		GlobalInfo.point = 0;
 		GlobalInfo.currentUser = "";
+		GlobalInfo.openedPos = 0;
 	}
 
 	IEnumerator Login()
 	{
-		string string_URL = GlobalInfo.loginURL + "username=" + username.GetComponent<UIInput>().value + "&password=" + GlobalInfo.Md5Sum(password.GetComponent<UIInput>().value);
+		string string_URL = GlobalInfo.loginURL + "username=" + username.GetComponent<UIInput>().value + "&password=" + GlobalInfo.Md5Sum(password.GetComponent<UIInput>().value) + "&version=" + GlobalInfo.version;
 		WWW string_get = new WWW(string_URL);
 		yield return string_get;
 		
 		if (string_get.error != null)
 		{
-			Debug.Log(string_get.error);
 			StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"There was an error : " + string_get.error,1f));
 		}
 		else
 		{
 			int result;
-			if (int.TryParse(string_get.text.Trim(),out result)){
+			string[] textTemp = string_get.text.Trim().Split('|');
+			if (int.TryParse(textTemp[0],out result)){
 				switch (string_get.text.Trim())
 				{
+				case "-2":
+					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Sai phiên bản, hay cập nhật phiên bản mới!",1f));
+					break;
 				case "-1":
 					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Sai mật khẩu!",1f));
 					break;
@@ -36,7 +42,10 @@ public class loginButton : MonoBehaviour {
 					StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Tài khoản không tồn tại!",1f));
 					break;
 				default:
-					GlobalInfo.currentLevel = int.Parse(string_get.text.Trim());
+					GlobalInfo.currentLevel = int.Parse(textTemp[0]);
+					GlobalInfo.skipTimes = int.Parse(textTemp[1]);
+					GlobalInfo.point = int.Parse(textTemp[1]);
+					GlobalInfo.openedPos = int.Parse(textTemp[2]);
 					GlobalInfo.currentUser = username.GetComponent<UIInput>().value;
 					nextScreen = true;
 					break;
