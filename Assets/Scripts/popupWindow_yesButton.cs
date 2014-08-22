@@ -9,7 +9,7 @@ public class popupWindow_yesButton : MonoBehaviour {
 
 	void OnClick()
 	{
-		if(GlobalInfo.point < 15)
+		if(GlobalInfo.point < 5)
 		{
 			StartCoroutine(GlobalInfo.PrintAndWait(popupPrefab,"Bạn không đủ điểm để bóc bánh",2f));
 		}
@@ -26,7 +26,7 @@ public class popupWindow_yesButton : MonoBehaviour {
 					GameManager.answerBox[i].GetComponent<answerBox>().hintBoxPos = -1;
 					
 					//Decrease point
-					GlobalInfo.point -= 15;
+					GlobalInfo.point -= 5;
 					pointLabel.GetComponentInChildren<UILabel>().text = GlobalInfo.point.ToString();
 					StartCoroutine(GlobalInfo.addPoint(GlobalInfo.point,popupPrefab));
 					

@@ -27,7 +27,7 @@ public class GlobalInfo : MonoBehaviour {
 	public static bool savedPoint = false;
 	public static bool savedHint = false;
 
-	public static string version = "228";
+	public static string version = "2282";
 
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
